@@ -7,7 +7,8 @@ function removeAds(value) {
         return value.filter(function (item) {
             if (!item || typeof item !== "object") return true;
             return !(item.ad_info || item.adInfo || item.cm_info || item.cmInfo ||
-                item.card_type === "cm_v1" || item.cardType === "cm_v1" ||
+                String(item.card_type || item.cardType || "").indexOf("cm_") === 0 ||
+                item.card_goto === "ad_av" || item.card_goto === "ad_inline_combo" ||
                 item.is_ad === true || item.isAd === true);
         }).map(removeAds);
     }
@@ -32,6 +33,8 @@ try {
             });
             if (obj.data.account && typeof obj.data.account === "object") obj.data.account = {};
         }
+    } else if (/\/x\/v2\/feed\/index/.test(url)) {
+        obj = removeAds(obj);
     } else if (/\/x\/resource\/(peak\/download|show(?:\/tab\/v2)?)/.test(url)) {
         const d = obj.data || obj;
         if (Array.isArray(d.resource)) d.resource.forEach(function (r) { if (r && Array.isArray(r.list)) r.list = []; });
