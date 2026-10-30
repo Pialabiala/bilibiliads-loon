@@ -1,23 +1,21 @@
 [Plugin]
 #!name=Bilibili 去广告
-#!desc=移除哔哩哔哩开屏、信息流及部分 UI 推广模块，并拦截数据上报。
+#!desc=移除哔哩哔哩开屏、信息流、会员购及部分 UI 推广模块，并拦截数据上报。
 #!author=Pialabiala
 #!homepage=https://github.com/Pialabiala/bilibiliads-loon
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Bilibili.png
 #!date=2026-10-30
 
 [Rule]
-# 拦截抓包中发现的遥测与行为日志收集域名
 DOMAIN,data.bilibili.com,REJECT
 DOMAIN,dataflow.biliapi.com,REJECT
-# 拦截其他常见数据收集与广告下发域名
 DOMAIN-SUFFIX,cm.bilibili.com,REJECT
 DOMAIN,manga.bilibili.com,REJECT
 DOMAIN,api.bilibili.com,REJECT-DROP
 
 [Script]
-# 更新了正则，新增 resource/peak/download 路径的拦截
-http-response ^https?:\/\/app\.bilibili\.com\/x\/(v2\/(splash|feed\/index|account\/mine)|resource\/peak\/download) script-path=https://raw.githubusercontent.com/Pialabiala/bilibiliads-loon/main/bilibili.js, requires-body=true, timeout=10, tag=Bilibili_Ads
+# 正则中新增了 show/tab 路径用于处理底部导航栏
+http-response ^https?:\/\/app\.bilibili\.com\/x\/(v2\/(splash|feed\/index|account\/mine)|resource\/(peak\/download|show\/tab)) script-path=bilibili.js, requires-body=true, timeout=10, tag=Bilibili_Ads
 
 [MITM]
 hostname = app.bilibili.com
