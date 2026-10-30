@@ -25,11 +25,12 @@ function removeAds(value) {
 
 try {
     let obj = JSON.parse(body);
-    if (/\/x\/v2\/splash\/(list|show|brand\/list|event\/list2|brand\/show|event\/show)/.test(url)) {
+    if (/\/x\/v2\/splash\//.test(url)) {
         if (obj.data) {
-            ["show", "list", "event_list", "preload"].forEach(function (key) {
+            ["show", "list", "event_list", "preload", "query_list"].forEach(function (key) {
                 if (Array.isArray(obj.data[key])) obj.data[key] = [];
             });
+            if (obj.data.account && typeof obj.data.account === "object") obj.data.account = {};
         }
     } else if (/\/x\/resource\/(peak\/download|show(?:\/tab\/v2)?)/.test(url)) {
         const d = obj.data || obj;
