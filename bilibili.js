@@ -28,7 +28,7 @@ try {
     let obj = JSON.parse(body);
     if (/\/x\/v2\/splash\//.test(url)) {
         if (obj.data) {
-            ["show", "list", "event_list", "preload", "query_list"].forEach(function (key) {
+            ["show", "list", "event_list", "preload", "query_list", "keep_ids"].forEach(function (key) {
                 if (Array.isArray(obj.data[key])) obj.data[key] = [];
             });
             if (obj.data.account && typeof obj.data.account === "object") obj.data.account = {};
