@@ -12,7 +12,7 @@ DOMAIN,dataflow.biliapi.com,REJECT
 DOMAIN,cm.bilibili.com,REJECT
 
 [Script]
-http-response ^https?:\\/\\/app\\.bilibili\\.com\\/x\\/(v2\\/(splash\\/(list|show|brand\\/list|event\\/list2)|feed\\/(index|region|popular)|account\\/mine)|resource\\/(peak\\/download|show(?:\\/tab\\/v2)?)) script-path=https://raw.githubusercontent.com/Pialabiala/bilibiliads-loon/main/bilibili.js, requires-body=true, timeout=10, tag=Bilibili_Ads
+http-response ^https?:\\/\\/app\\.bilibili\\.com\\/x\\/(v2\\/(splash\\/(list|show|brand\\/list|event\\/list2|brand\\/show|event\\/show)|feed\\/(index|region|popular)|account\\/mine)|resource\\/(peak\\/download|show(?:\\/tab\\/v2)?)) script-path=https://raw.githubusercontent.com/Pialabiala/bilibiliads-loon/main/bilibili.js, requires-body=true, timeout=10, tag=Bilibili_Ads
 
 [MITM]
 hostname = app.bilibili.com
