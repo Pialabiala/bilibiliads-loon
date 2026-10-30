@@ -11,10 +11,10 @@ try {
     // 1. 去除开屏广告 (Splash)
     if (url.includes("/x/v2/splash")) {
         if (obj.data && obj.data.show) {
-            obj.data.show = []; 
+            obj.data.show = []; 
         }
     }
-    
+    
     // 2. 净化首页推荐信息流 (Feed)
     else if (url.includes("/x/v2/feed/index")) {
         if (obj.data && obj.data.items) {
@@ -23,25 +23,35 @@ try {
             });
         }
     }
-    
+    
     // 3. 精简“我的”页面 UI 布局 (Mine)
     else if (url.includes("/x/v2/account/mine")) {
         if (obj.data && obj.data.sections_v2) {
             obj.data.sections_v2 = obj.data.sections_v2.filter(section => {
-                return !["推荐服务", "更多服务"].includes(section.title); 
+                return !["推荐服务", "更多服务"].includes(section.title); 
             });
         }
     }
-    
-    // 4. [新增] 拦截开屏与品牌广告物料预下载 (Peak Download)
+    
+    // 4. 拦截开屏与品牌广告物料预下载 (Peak Download)
     else if (url.includes("/x/resource/peak/download")) {
         if (obj.data && obj.data.resource) {
-            // 遍历所有资源类型（如 brand_splash, egg 等），清空它们的 list
             for (let i = 0; i < obj.data.resource.length; i++) {
                 if (obj.data.resource[i].list) {
                     obj.data.resource[i].list = [];
                 }
             }
+        }
+    }
+
+    // 5. [新增] 移除底部导航栏的“会员购” (Tab)
+    else if (url.includes("/x/resource/show/tab")) {
+        if (obj.data && obj.data.bottom) {
+            obj.data.bottom = obj.data.bottom.filter(tab => tab.name !== "会员购");
+        }
+        // 兼容部分旧版本或变体字段
+        if (obj.data && obj.data.tab) {
+            obj.data.tab = obj.data.tab.filter(tab => tab.name !== "会员购");
         }
     }
 
