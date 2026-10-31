@@ -10,6 +10,7 @@
 DOMAIN,data.bilibili.com,REJECT
 DOMAIN,dataflow.biliapi.com,REJECT
 DOMAIN,cm.bilibili.com,REJECT
+URL-REGEX,^https?://i[0-9]+\.hdslb\.com/bfs/sycp_brand/,REJECT
 
 [Script]
 http-response ^https?://app\.bilibili\.com/x/(v2/(splash/|feed/index)|resource/(peak/download|show)) script-path=https://raw.githubusercontent.com/Pialabiala/bilibiliads-loon/main/bilibili.js, requires-body=true, timeout=10, tag=Bilibili_Ads
